@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/Cignal_Frontend/index.html" }
+  ]
+}
