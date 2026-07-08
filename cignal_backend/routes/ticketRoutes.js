@@ -1,0 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const { createTicketController, getMyTicketsController, getAllTicketsController, getTicketByIdController, updateTicketStatusController, deleteTicketController } = require('../controllers/ticketController');
+const { sendMessageController, getMessagesController } = require('../controllers/messageController');
+const { authRequired, requireRole } = require('../middleware/auth');
+const uploadMessage = require('../middleware/uploadMessage');
+router.get('/admin',     authRequired, requireRole('admin'), getAllTicketsController);
+router.patch('/admin/:id', authRequired, requireRole('admin'), updateTicketStatusController);
+router.delete('/admin/:id',authRequired, requireRole('admin'), deleteTicketController);
+router.post('/',         authRequired, createTicketController);
+router.get('/my',        authRequired, getMyTicketsController);
+router.get('/:id/messages',  authRequired, getMessagesController);
+router.post('/:id/messages', authRequired, uploadMessage.single('attachment'), sendMessageController);
+router.get('/:id',       authRequired, getTicketByIdController);
+module.exports = router;

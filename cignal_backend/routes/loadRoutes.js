@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const { addLoad, getMyLoadHistory, getAllLoadHistoryController, getPrepaidTransactionsController, getPlansController, updateLoadStatusController } = require('../controllers/loadController');
+const { authRequired, requireRole } = require('../middleware/auth');
+router.get('/plans',                authRequired, getPlansController);
+router.get('/prepaid-transactions', authRequired, requireRole('admin'), getPrepaidTransactionsController);
+router.post('/',                    authRequired, addLoad);
+router.get('/my',                   authRequired, getMyLoadHistory);
+router.get('/admin',                authRequired, requireRole('admin'), getAllLoadHistoryController);
+router.patch('/admin/:id',          authRequired, requireRole('admin'), updateLoadStatusController);
+module.exports = router;
