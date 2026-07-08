@@ -1,5 +1,9 @@
 {
+  "public": true,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/Cignal_Frontend/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/Cignal_Frontend/$1"
+    }
   ]
 }
