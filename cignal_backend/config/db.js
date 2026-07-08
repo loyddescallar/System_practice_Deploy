@@ -11,4 +11,4 @@ const db = new Pool({
 // Para manatili itong compatible sa lumang queries mo
 db.query = db.query.bind(db);
 
-module.exports = db;
+module.exports = pool;
