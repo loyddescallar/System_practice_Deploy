@@ -1,9 +1,15 @@
 {
-  "public": true,
+  "builds": [
+    {
+      "src": "Cignal_Frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/Cignal_Frontend/$1"
+      "destination": "Cignal_Frontend/index.html"
     }
   ]
 }
