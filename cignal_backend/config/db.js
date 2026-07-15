@@ -1,14 +1,20 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+const { Pool } = require("pg");
+require("dotenv").config();
 
-const db = new Pool({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : false,
 });
 
-// Para manatili itong compatible sa lumang queries mo
-db.query = db.query.bind(db);
+pool.on("connect", () => {
+  console.log("Connected to PostgreSQL database");
+});
+
+pool.on("error", (err) => {
+  console.error("PostgreSQL pool error:", err);
+});
 
 module.exports = pool;
